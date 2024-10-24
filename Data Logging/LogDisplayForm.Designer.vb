@@ -81,6 +81,8 @@ Partial Class LogDisplayForm
         '
         'DataGraphPictureBox
         '
+        Me.DataGraphPictureBox.BackColor = System.Drawing.Color.Gainsboro
+        Me.DataGraphPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.DataGraphPictureBox.Location = New System.Drawing.Point(12, 55)
         Me.DataGraphPictureBox.Name = "DataGraphPictureBox"
         Me.DataGraphPictureBox.Size = New System.Drawing.Size(989, 433)
@@ -130,9 +132,9 @@ Partial Class LogDisplayForm
         'StatusStrip
         '
         Me.StatusStrip.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.StatusStrip.Location = New System.Drawing.Point(0, 584)
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 586)
         Me.StatusStrip.Name = "StatusStrip"
-        Me.StatusStrip.Size = New System.Drawing.Size(1014, 24)
+        Me.StatusStrip.Size = New System.Drawing.Size(1014, 22)
         Me.StatusStrip.TabIndex = 9
         Me.StatusStrip.Text = "StatusStrip1"
         '
