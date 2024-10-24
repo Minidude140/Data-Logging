@@ -27,15 +27,22 @@ Partial Class LogDisplayForm
         Me.SaveDataButton = New System.Windows.Forms.Button()
         Me.StartLogButton = New System.Windows.Forms.Button()
         Me.StopLogButton = New System.Windows.Forms.Button()
-        Me.DataGraphPictureBox = New System.Windows.Forms.PictureBox()
         Me.ThirtySecondsRadioButton = New System.Windows.Forms.RadioButton()
         Me.EntireHistoryRadioButton = New System.Windows.Forms.RadioButton()
         Me.DataCollectionTimer = New System.Windows.Forms.Timer(Me.components)
         Me.COMSerialPort = New System.IO.Ports.SerialPort(Me.components)
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.MenuStrip = New System.Windows.Forms.MenuStrip()
+        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OpenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip = New System.Windows.Forms.ToolStrip()
+        Me.ComboBoxToolStripComboBox = New System.Windows.Forms.ToolStripComboBox()
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
+        Me.ConnectCOMToolStripButton = New System.Windows.Forms.ToolStripButton()
+        Me.DataGraphPictureBox = New System.Windows.Forms.PictureBox()
+        Me.MenuStrip.SuspendLayout()
+        Me.ToolStrip.SuspendLayout()
         CType(Me.DataGraphPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -62,7 +69,7 @@ Partial Class LogDisplayForm
         'StartLogButton
         '
         Me.StartLogButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.StartLogButton.Location = New System.Drawing.Point(10, 514)
+        Me.StartLogButton.Location = New System.Drawing.Point(10, 507)
         Me.StartLogButton.Name = "StartLogButton"
         Me.StartLogButton.Size = New System.Drawing.Size(139, 68)
         Me.StartLogButton.TabIndex = 2
@@ -72,27 +79,17 @@ Partial Class LogDisplayForm
         'StopLogButton
         '
         Me.StopLogButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.StopLogButton.Location = New System.Drawing.Point(155, 514)
+        Me.StopLogButton.Location = New System.Drawing.Point(155, 507)
         Me.StopLogButton.Name = "StopLogButton"
         Me.StopLogButton.Size = New System.Drawing.Size(139, 68)
         Me.StopLogButton.TabIndex = 3
         Me.StopLogButton.Text = "Stop Data" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Collection"
         Me.StopLogButton.UseVisualStyleBackColor = True
         '
-        'DataGraphPictureBox
-        '
-        Me.DataGraphPictureBox.BackColor = System.Drawing.Color.Gainsboro
-        Me.DataGraphPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.DataGraphPictureBox.Location = New System.Drawing.Point(12, 55)
-        Me.DataGraphPictureBox.Name = "DataGraphPictureBox"
-        Me.DataGraphPictureBox.Size = New System.Drawing.Size(989, 433)
-        Me.DataGraphPictureBox.TabIndex = 4
-        Me.DataGraphPictureBox.TabStop = False
-        '
         'ThirtySecondsRadioButton
         '
         Me.ThirtySecondsRadioButton.AutoSize = True
-        Me.ThirtySecondsRadioButton.Location = New System.Drawing.Point(320, 514)
+        Me.ThirtySecondsRadioButton.Location = New System.Drawing.Point(320, 507)
         Me.ThirtySecondsRadioButton.Name = "ThirtySecondsRadioButton"
         Me.ThirtySecondsRadioButton.Size = New System.Drawing.Size(133, 21)
         Me.ThirtySecondsRadioButton.TabIndex = 5
@@ -103,7 +100,7 @@ Partial Class LogDisplayForm
         'EntireHistoryRadioButton
         '
         Me.EntireHistoryRadioButton.AutoSize = True
-        Me.EntireHistoryRadioButton.Location = New System.Drawing.Point(320, 561)
+        Me.EntireHistoryRadioButton.Location = New System.Drawing.Point(320, 554)
         Me.EntireHistoryRadioButton.Name = "EntireHistoryRadioButton"
         Me.EntireHistoryRadioButton.Size = New System.Drawing.Size(160, 21)
         Me.EntireHistoryRadioButton.TabIndex = 6
@@ -114,20 +111,46 @@ Partial Class LogDisplayForm
         'MenuStrip
         '
         Me.MenuStrip.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem})
         Me.MenuStrip.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip.Name = "MenuStrip"
-        Me.MenuStrip.Size = New System.Drawing.Size(1014, 24)
+        Me.MenuStrip.Size = New System.Drawing.Size(1014, 28)
         Me.MenuStrip.TabIndex = 7
         Me.MenuStrip.Text = "MenuStrip1"
+        '
+        'FileToolStripMenuItem
+        '
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenToolStripMenuItem, Me.SaveToolStripMenuItem})
+        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(46, 24)
+        Me.FileToolStripMenuItem.Text = "File"
+        '
+        'OpenToolStripMenuItem
+        '
+        Me.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem"
+        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(128, 26)
+        Me.OpenToolStripMenuItem.Text = "Open"
+        '
+        'SaveToolStripMenuItem
+        '
+        Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
+        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(128, 26)
+        Me.SaveToolStripMenuItem.Text = "Save"
         '
         'ToolStrip
         '
         Me.ToolStrip.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ToolStrip.Location = New System.Drawing.Point(0, 24)
+        Me.ToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ComboBoxToolStripComboBox, Me.ConnectCOMToolStripButton})
+        Me.ToolStrip.Location = New System.Drawing.Point(0, 28)
         Me.ToolStrip.Name = "ToolStrip"
-        Me.ToolStrip.Size = New System.Drawing.Size(1014, 25)
+        Me.ToolStrip.Size = New System.Drawing.Size(1014, 28)
         Me.ToolStrip.TabIndex = 8
         Me.ToolStrip.Text = "ToolStrip1"
+        '
+        'ComboBoxToolStripComboBox
+        '
+        Me.ComboBoxToolStripComboBox.Name = "ComboBoxToolStripComboBox"
+        Me.ComboBoxToolStripComboBox.Size = New System.Drawing.Size(121, 28)
         '
         'StatusStrip
         '
@@ -137,6 +160,25 @@ Partial Class LogDisplayForm
         Me.StatusStrip.Size = New System.Drawing.Size(1014, 22)
         Me.StatusStrip.TabIndex = 9
         Me.StatusStrip.Text = "StatusStrip1"
+        '
+        'ConnectCOMToolStripButton
+        '
+        Me.ConnectCOMToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.ConnectCOMToolStripButton.Image = Global.Data_Logging.My.Resources.Resources.icons8_usb_connector_30
+        Me.ConnectCOMToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ConnectCOMToolStripButton.Name = "ConnectCOMToolStripButton"
+        Me.ConnectCOMToolStripButton.Size = New System.Drawing.Size(29, 25)
+        Me.ConnectCOMToolStripButton.Text = "ToolStripButton1"
+        '
+        'DataGraphPictureBox
+        '
+        Me.DataGraphPictureBox.BackColor = System.Drawing.Color.Gainsboro
+        Me.DataGraphPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.DataGraphPictureBox.Location = New System.Drawing.Point(12, 55)
+        Me.DataGraphPictureBox.Name = "DataGraphPictureBox"
+        Me.DataGraphPictureBox.Size = New System.Drawing.Size(989, 433)
+        Me.DataGraphPictureBox.TabIndex = 4
+        Me.DataGraphPictureBox.TabStop = False
         '
         'LogDisplayForm
         '
@@ -156,6 +198,10 @@ Partial Class LogDisplayForm
         Me.MainMenuStrip = Me.MenuStrip
         Me.Name = "LogDisplayForm"
         Me.Text = "Data Logger"
+        Me.MenuStrip.ResumeLayout(False)
+        Me.MenuStrip.PerformLayout()
+        Me.ToolStrip.ResumeLayout(False)
+        Me.ToolStrip.PerformLayout()
         CType(Me.DataGraphPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -175,4 +221,9 @@ Partial Class LogDisplayForm
     Friend WithEvents MenuStrip As MenuStrip
     Friend WithEvents ToolStrip As ToolStrip
     Friend WithEvents StatusStrip As StatusStrip
+    Friend WithEvents FileToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents OpenToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SaveToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ComboBoxToolStripComboBox As ToolStripComboBox
+    Friend WithEvents ConnectCOMToolStripButton As ToolStripButton
 End Class
