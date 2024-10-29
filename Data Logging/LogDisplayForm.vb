@@ -210,4 +210,26 @@ Public Class LogDisplayForm
             Plot(limitDataList)
         End If
     End Sub
+
+    Private Sub ThirtySecondsRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles ThirtySecondsRadioButton.CheckedChanged
+        'Update Menu strip buttons to mirror radio buttons
+        If ThirtySecondsRadioButton.Checked = True Then
+            ThirtySecondsMenuStrip.Enabled = False
+            FullDataSetMenuStrip.Enabled = True
+        End If
+        If FullDataSetRadioButton.Checked = True Then
+            ThirtySecondsMenuStrip.Enabled = True
+            FullDataSetMenuStrip.Enabled = False
+        End If
+    End Sub
+
+    Private Sub ThirtySecondsMenuStrip_Click(sender As Object, e As EventArgs) Handles ThirtySecondsMenuStrip.Click
+        'Update radio buttons when menu strip buttons are clicked
+        ThirtySecondsRadioButton.Checked = True
+    End Sub
+
+    Private Sub FullDataSetMenuStrip_Click(sender As Object, e As EventArgs) Handles FullDataSetMenuStrip.Click
+        'Update radio buttons when menu strip buttons are clicked
+        FullDataSetRadioButton.Checked = True
+    End Sub
 End Class
