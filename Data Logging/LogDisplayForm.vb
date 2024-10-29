@@ -79,6 +79,27 @@ Public Class LogDisplayForm
         Return isQY
     End Function
 
+    ''' <summary>
+    ''' Given a minimum and maximum, returns a random number within range.  
+    ''' <br/>
+    ''' Defaults:
+    ''' <br/>
+    ''' Min = 0     Max = 10
+    ''' </summary>
+    ''' <param name="min"></param>
+    ''' <param name="max"></param>
+    ''' <returns></returns>
+    Function RandomNumberFrom(Optional min As Integer = 0, Optional max As Integer = 10) As Integer
+        Dim _random As Integer
+        'max = max + 1 to still get the max number (floor always rounds down)
+        max += 1
+        'randomize with current millisecond as seed
+        Randomize(DateTime.Now.Millisecond)
+        'set random number as random within bounds
+        _random = CInt(Math.Floor(Rnd() * (max - min))) + min
+        Return _random
+    End Function
+
     '********************Event Handlers*****************************************
 
     Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
