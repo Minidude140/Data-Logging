@@ -6,6 +6,7 @@
 
 Imports System.Threading
 Public Class LogDisplayForm
+    Dim DataList As New List(Of Integer)
 
     '********************Custom Methods*****************************************
     Sub SetDefaults()
@@ -80,6 +81,27 @@ Public Class LogDisplayForm
     End Function
 
     ''' <summary>
+    ''' Draws the Given Array Data onto the picture box
+    ''' </summary>
+    ''' <param name="plotData"></param>
+    Sub Plot(plotData As List(Of Integer))
+        'clear old data
+        DataGraphPictureBox.Refresh()
+        Dim g As Graphics = DataGraphPictureBox.CreateGraphics
+        Dim pen As New Pen(Color.Black)
+        Dim oldx As Integer
+        Dim oldy As Integer
+        'scales the X to be the number of pixels in the picture box by 100
+        g.ScaleTransform(CSng(DataGraphPictureBox.Width / 100), 1)
+        'iterate through the data and plot each point on the screen
+        For x = 0 To (plotData.Count - 1)
+            g.DrawLine(pen, oldx, oldy, x, plotData.Item(x))
+            oldx = x
+            oldy = plotData.Item(x)
+        Next
+    End Sub
+
+    ''' <summary>
     ''' Given a minimum and maximum, returns a random number within range.  
     ''' <br/>
     ''' Defaults:
@@ -114,5 +136,26 @@ Public Class LogDisplayForm
 
     Private Sub ConnectCOMToolStripButton_Click(sender As Object, e As EventArgs) Handles ConnectCOMToolStripButton.Click
         ConnectCOM()
+    End Sub
+
+    Private Sub StartLogButton_Click(sender As Object, e As EventArgs) Handles StartLogButton.Click
+        'Start Data Collection Timer
+        If DataCollectionTimer.Enabled = False Then
+            DataCollectionTimer.Enabled = True
+        End If
+    End Sub
+
+    Private Sub StopLogButton_Click(sender As Object, e As EventArgs) Handles StopLogButton.Click
+        'Stop Data Collection Timer
+        If DataCollectionTimer.Enabled = True Then
+            DataCollectionTimer.Enabled = False
+        End If
+    End Sub
+
+    Private Sub DataCollectionTimer_Tick(sender As Object, e As EventArgs) Handles DataCollectionTimer.Tick
+        'Add new Random Data Point
+        DataList.Add(RandomNumberFrom(0, 100))
+        'Plot Current Data Set
+        Plot(DataList)
     End Sub
 End Class

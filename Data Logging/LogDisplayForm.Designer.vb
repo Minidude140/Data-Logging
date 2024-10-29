@@ -119,6 +119,10 @@ Partial Class LogDisplayForm
         Me.ToolTip.SetToolTip(Me.FullDataSetRadioButton, "Display Entire History Of Data Collected")
         Me.FullDataSetRadioButton.UseVisualStyleBackColor = True
         '
+        'DataCollectionTimer
+        '
+        Me.DataCollectionTimer.Interval = 250
+        '
         'MenuStrip
         '
         Me.MenuStrip.ImageScalingSize = New System.Drawing.Size(20, 20)
