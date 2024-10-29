@@ -59,6 +59,7 @@ Partial Class LogDisplayForm
         Me.ExitButton.Size = New System.Drawing.Size(139, 68)
         Me.ExitButton.TabIndex = 0
         Me.ExitButton.Text = "Exit"
+        Me.ToolTip.SetToolTip(Me.ExitButton, "Exit the Program")
         Me.ExitButton.UseVisualStyleBackColor = True
         '
         'SaveDataButton
@@ -69,6 +70,7 @@ Partial Class LogDisplayForm
         Me.SaveDataButton.Size = New System.Drawing.Size(139, 68)
         Me.SaveDataButton.TabIndex = 1
         Me.SaveDataButton.Text = "Save Data" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "To File"
+        Me.ToolTip.SetToolTip(Me.SaveDataButton, "Export Data to FIle")
         Me.SaveDataButton.UseVisualStyleBackColor = True
         '
         'StartLogButton
@@ -79,6 +81,7 @@ Partial Class LogDisplayForm
         Me.StartLogButton.Size = New System.Drawing.Size(139, 68)
         Me.StartLogButton.TabIndex = 2
         Me.StartLogButton.Text = "Start Data" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Collection"
+        Me.ToolTip.SetToolTip(Me.StartLogButton, "Begin Collecting Data From COM Input")
         Me.StartLogButton.UseVisualStyleBackColor = True
         '
         'StopLogButton
@@ -89,6 +92,7 @@ Partial Class LogDisplayForm
         Me.StopLogButton.Size = New System.Drawing.Size(139, 68)
         Me.StopLogButton.TabIndex = 3
         Me.StopLogButton.Text = "Stop Data" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Collection"
+        Me.ToolTip.SetToolTip(Me.StopLogButton, "Stop Collecting Data From COM Input")
         Me.StopLogButton.UseVisualStyleBackColor = True
         '
         'ThirtySecondsRadioButton
@@ -100,6 +104,7 @@ Partial Class LogDisplayForm
         Me.ThirtySecondsRadioButton.TabIndex = 5
         Me.ThirtySecondsRadioButton.TabStop = True
         Me.ThirtySecondsRadioButton.Text = "Display Last 30s"
+        Me.ToolTip.SetToolTip(Me.ThirtySecondsRadioButton, "Display Only the Last 30 Seconds of Data Collected")
         Me.ThirtySecondsRadioButton.UseVisualStyleBackColor = True
         '
         'FullDataSetRadioButton
@@ -111,6 +116,7 @@ Partial Class LogDisplayForm
         Me.FullDataSetRadioButton.TabIndex = 6
         Me.FullDataSetRadioButton.TabStop = True
         Me.FullDataSetRadioButton.Text = "Display Full Data Set"
+        Me.ToolTip.SetToolTip(Me.FullDataSetRadioButton, "Display Entire History Of Data Collected")
         Me.FullDataSetRadioButton.UseVisualStyleBackColor = True
         '
         'MenuStrip
@@ -187,15 +193,18 @@ Partial Class LogDisplayForm
         '
         Me.COMSelectToolStripComboBox.Name = "COMSelectToolStripComboBox"
         Me.COMSelectToolStripComboBox.Size = New System.Drawing.Size(121, 28)
+        Me.COMSelectToolStripComboBox.ToolTipText = "Select Available COM Ports"
         '
         'ConnectCOMToolStripButton
         '
+        Me.ConnectCOMToolStripButton.BackColor = System.Drawing.SystemColors.ControlLight
         Me.ConnectCOMToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.ConnectCOMToolStripButton.Image = Global.Data_Logging.My.Resources.Resources.icons8_usb_connector_30
         Me.ConnectCOMToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ConnectCOMToolStripButton.Name = "ConnectCOMToolStripButton"
         Me.ConnectCOMToolStripButton.Size = New System.Drawing.Size(29, 25)
         Me.ConnectCOMToolStripButton.Text = "ToolStripButton1"
+        Me.ConnectCOMToolStripButton.ToolTipText = "Attempt to Connect to Selected COM Port"
         '
         'StatusStrip
         '
