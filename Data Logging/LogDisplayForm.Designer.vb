@@ -38,9 +38,14 @@ Partial Class LogDisplayForm
         Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip = New System.Windows.Forms.ToolStrip()
         Me.ComboBoxToolStripComboBox = New System.Windows.Forms.ToolStripComboBox()
-        Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.ConnectCOMToolStripButton = New System.Windows.Forms.ToolStripButton()
+        Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.DataGraphPictureBox = New System.Windows.Forms.PictureBox()
+        Me.DataCollectionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StartDataCollectionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StopDataCollectionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DisplayLast30sToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DisplayFullDataSetToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         CType(Me.DataGraphPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -111,7 +116,7 @@ Partial Class LogDisplayForm
         'MenuStrip
         '
         Me.MenuStrip.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem})
+        Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.DataCollectionToolStripMenuItem})
         Me.MenuStrip.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip.Name = "MenuStrip"
         Me.MenuStrip.Size = New System.Drawing.Size(1014, 28)
@@ -128,13 +133,13 @@ Partial Class LogDisplayForm
         'OpenToolStripMenuItem
         '
         Me.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem"
-        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(128, 26)
+        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.OpenToolStripMenuItem.Text = "Open"
         '
         'SaveToolStripMenuItem
         '
         Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
-        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(128, 26)
+        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.SaveToolStripMenuItem.Text = "Save"
         '
         'ToolStrip
@@ -152,15 +157,6 @@ Partial Class LogDisplayForm
         Me.ComboBoxToolStripComboBox.Name = "ComboBoxToolStripComboBox"
         Me.ComboBoxToolStripComboBox.Size = New System.Drawing.Size(121, 28)
         '
-        'StatusStrip
-        '
-        Me.StatusStrip.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.StatusStrip.Location = New System.Drawing.Point(0, 586)
-        Me.StatusStrip.Name = "StatusStrip"
-        Me.StatusStrip.Size = New System.Drawing.Size(1014, 22)
-        Me.StatusStrip.TabIndex = 9
-        Me.StatusStrip.Text = "StatusStrip1"
-        '
         'ConnectCOMToolStripButton
         '
         Me.ConnectCOMToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
@@ -169,6 +165,15 @@ Partial Class LogDisplayForm
         Me.ConnectCOMToolStripButton.Name = "ConnectCOMToolStripButton"
         Me.ConnectCOMToolStripButton.Size = New System.Drawing.Size(29, 25)
         Me.ConnectCOMToolStripButton.Text = "ToolStripButton1"
+        '
+        'StatusStrip
+        '
+        Me.StatusStrip.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 586)
+        Me.StatusStrip.Name = "StatusStrip"
+        Me.StatusStrip.Size = New System.Drawing.Size(1014, 22)
+        Me.StatusStrip.TabIndex = 9
+        Me.StatusStrip.Text = "StatusStrip1"
         '
         'DataGraphPictureBox
         '
@@ -179,6 +184,37 @@ Partial Class LogDisplayForm
         Me.DataGraphPictureBox.Size = New System.Drawing.Size(989, 433)
         Me.DataGraphPictureBox.TabIndex = 4
         Me.DataGraphPictureBox.TabStop = False
+        '
+        'DataCollectionToolStripMenuItem
+        '
+        Me.DataCollectionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StartDataCollectionToolStripMenuItem, Me.StopDataCollectionToolStripMenuItem, Me.DisplayLast30sToolStripMenuItem, Me.DisplayFullDataSetToolStripMenuItem})
+        Me.DataCollectionToolStripMenuItem.Name = "DataCollectionToolStripMenuItem"
+        Me.DataCollectionToolStripMenuItem.Size = New System.Drawing.Size(126, 24)
+        Me.DataCollectionToolStripMenuItem.Text = "Data Collection"
+        '
+        'StartDataCollectionToolStripMenuItem
+        '
+        Me.StartDataCollectionToolStripMenuItem.Name = "StartDataCollectionToolStripMenuItem"
+        Me.StartDataCollectionToolStripMenuItem.Size = New System.Drawing.Size(230, 26)
+        Me.StartDataCollectionToolStripMenuItem.Text = "Start Data Collection"
+        '
+        'StopDataCollectionToolStripMenuItem
+        '
+        Me.StopDataCollectionToolStripMenuItem.Name = "StopDataCollectionToolStripMenuItem"
+        Me.StopDataCollectionToolStripMenuItem.Size = New System.Drawing.Size(230, 26)
+        Me.StopDataCollectionToolStripMenuItem.Text = "Stop Data Collection"
+        '
+        'DisplayLast30sToolStripMenuItem
+        '
+        Me.DisplayLast30sToolStripMenuItem.Name = "DisplayLast30sToolStripMenuItem"
+        Me.DisplayLast30sToolStripMenuItem.Size = New System.Drawing.Size(230, 26)
+        Me.DisplayLast30sToolStripMenuItem.Text = "Display Last 30s"
+        '
+        'DisplayFullDataSetToolStripMenuItem
+        '
+        Me.DisplayFullDataSetToolStripMenuItem.Name = "DisplayFullDataSetToolStripMenuItem"
+        Me.DisplayFullDataSetToolStripMenuItem.Size = New System.Drawing.Size(230, 26)
+        Me.DisplayFullDataSetToolStripMenuItem.Text = "Display Full Data Set"
         '
         'LogDisplayForm
         '
@@ -226,4 +262,9 @@ Partial Class LogDisplayForm
     Friend WithEvents SaveToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ComboBoxToolStripComboBox As ToolStripComboBox
     Friend WithEvents ConnectCOMToolStripButton As ToolStripButton
+    Friend WithEvents DataCollectionToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents StartDataCollectionToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents StopDataCollectionToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents DisplayLast30sToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents DisplayFullDataSetToolStripMenuItem As ToolStripMenuItem
 End Class
