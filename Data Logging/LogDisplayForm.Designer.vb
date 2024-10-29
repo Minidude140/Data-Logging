@@ -46,6 +46,7 @@ Partial Class LogDisplayForm
         Me.ConnectCOMToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.DataGraphPictureBox = New System.Windows.Forms.PictureBox()
+        Me.UpdateGraphTimer = New System.Windows.Forms.Timer(Me.components)
         Me.MenuStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         CType(Me.DataGraphPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -121,7 +122,6 @@ Partial Class LogDisplayForm
         '
         'DataCollectionTimer
         '
-        Me.DataCollectionTimer.Interval = 250
         '
         'MenuStrip
         '
@@ -229,6 +229,10 @@ Partial Class LogDisplayForm
         Me.DataGraphPictureBox.TabIndex = 4
         Me.DataGraphPictureBox.TabStop = False
         '
+        'UpdateGraphTimer
+        '
+        Me.UpdateGraphTimer.Interval = 500
+        '
         'LogDisplayForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -280,4 +284,5 @@ Partial Class LogDisplayForm
     Friend WithEvents StopDataCollectionMenuStrip As ToolStripMenuItem
     Friend WithEvents ThirtySecondsMenuStrip As ToolStripMenuItem
     Friend WithEvents FullDataSetMenuStrip As ToolStripMenuItem
+    Friend WithEvents UpdateGraphTimer As Timer
 End Class

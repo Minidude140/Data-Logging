@@ -7,8 +7,10 @@
 Imports System.Threading
 Public Class LogDisplayForm
     Dim DataList As New List(Of Integer)
+    Dim limitDataList As New List(Of Integer)
     Dim maxInput As Integer = 100
-    Dim maxDataSet As Integer = 120
+    Dim maxDataSet As Integer = 300
+    Dim penColor As Color
 
     '********************Custom Methods*****************************************
     Sub SetDefaults()
@@ -17,6 +19,8 @@ Public Class LogDisplayForm
         'Start with 30 seconds data selected
         FullDataSetRadioButton.Checked = True
         FullDataSetMenuStrip.Enabled = False
+        'Set pen color
+        penColor = Color.Black
     End Sub
 
     ''' <summary>
@@ -92,28 +96,28 @@ Public Class LogDisplayForm
         'clear old data
         DataGraphPictureBox.Refresh()
         Dim g As Graphics = DataGraphPictureBox.CreateGraphics
-        Dim pen As New Pen(Color.Black)
+        Dim pen As New Pen(penColor)
         Dim oldx As Integer
         Dim oldy As Integer
         'scales the X to be the number of pixels in the picture box by max input value. 
         g.ScaleTransform(CSng(DataGraphPictureBox.Width / maxDataSet), 1)
-        If FullDataSetRadioButton.Checked = True Or DataList.Count <= maxDataSet Then
-            'iterate through the entire data set and plot each point on the screen or when initial data is empty in 30s mode
-            For x = 0 To (plotData.Count - 1)
+        ' If FullDataSetRadioButton.Checked = True Or DataList.Count <= maxDataSet Then
+        'iterate through the entire data set and plot each point on the screen or when initial data is empty in 30s mode
+        For x = 0 To (plotData.Count - 1)
                 g.DrawLine(pen, oldx, oldy, x, plotData.Item(x))
                 oldx = x
                 oldy = plotData.Item(x)
             Next
-        ElseIf ThirtySecondsRadioButton.Checked = True Then
-            'only plot the last 300 data points
-            For x = (plotData.Count - maxDataSet) To (plotData.Count - 1)
-                g.DrawLine(pen, oldx, oldy, x, plotData.Item(x))
-                oldx = x
-                oldy = plotData.Item(x)
-            Next
-        End If
-        're enable timer
-        DataCollectionTimer.Enabled = True
+            'ElseIf ThirtySecondsRadioButton.Checked = True Then
+            '    'only plot the last 300 data points
+            '    For x = (plotData.Count - maxDataSet) To (plotData.Count - 1)
+            '        g.DrawLine(pen, oldx, oldy, x, plotData.Item(x))
+            '        oldx = x
+            '        oldy = plotData.Item(x)
+            '    Next
+            'End If
+            're enable timer
+            DataCollectionTimer.Enabled = True
     End Sub
 
     ''' <summary>
@@ -159,6 +163,9 @@ Public Class LogDisplayForm
         If DataCollectionTimer.Enabled = False Then
             DataCollectionTimer.Enabled = True
         End If
+        If UpdateGraphTimer.Enabled = False Then
+            UpdateGraphTimer.Enabled = True
+        End If
     End Sub
 
     Private Sub StopLogButton_Click(sender As Object, e As EventArgs) Handles StopLogButton.Click,
@@ -166,6 +173,9 @@ Public Class LogDisplayForm
         'Stop Data Collection Timer
         If DataCollectionTimer.Enabled = True Then
             DataCollectionTimer.Enabled = False
+        End If
+        If UpdateGraphTimer.Enabled = True Then
+            UpdateGraphTimer.Enabled = False
         End If
     End Sub
 
@@ -181,7 +191,23 @@ Public Class LogDisplayForm
                 maxDataSet += 1
             End If
         End If
+        If DataList.Count > maxDataSet Then
+            'Update 30s data list 
+            limitDataList.Clear()
+            For x = (DataList.Count - maxDataSet) To DataList.Count - 1
+                limitDataList.Add(DataList(x))
+            Next
+        End If
+    End Sub
+
+    Private Sub UpdateGraphTimer_Tick(sender As Object, e As EventArgs) Handles UpdateGraphTimer.Tick
         'Plot Current Data Set
-        Plot(DataList)
+        If FullDataSetRadioButton.Checked = True Or DataList.Count <= maxDataSet Then
+            'Plot full data amount and first 30s of data when initial data is empty
+            Plot(DataList)
+        ElseIf ThirtySecondsRadioButton.Checked = True And DataList.Count >= maxDataSet Then
+            'Plot data limited to last 30s
+            Plot(limitDataList)
+        End If
     End Sub
 End Class
