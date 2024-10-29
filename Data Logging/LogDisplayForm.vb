@@ -15,8 +15,8 @@ Public Class LogDisplayForm
         'Clear Graph
         DataGraphPictureBox.Refresh()
         'Start with 30 seconds data selected
-        ThirtySecondsRadioButton.Checked = True
-        ThirtySecondsMenuStrip.Enabled = False
+        FullDataSetRadioButton.Checked = True
+        FullDataSetMenuStrip.Enabled = False
     End Sub
 
     ''' <summary>
@@ -93,8 +93,8 @@ Public Class LogDisplayForm
         Dim pen As New Pen(Color.Black)
         Dim oldx As Integer
         Dim oldy As Integer
-        'scales the X to be the number of pixels in the picture box by 100
-        g.ScaleTransform(CSng(DataGraphPictureBox.Width / maxDataSet), CSng(DataGraphPictureBox.Height / maxInput))
+        'scales the X to be the number of pixels in the picture box by max input value. 
+        g.ScaleTransform(CSng(DataGraphPictureBox.Width / maxDataSet), 1)
         'iterate through the data and plot each point on the screen
         For x = 0 To (plotData.Count - 1)
             g.DrawLine(pen, oldx, oldy, x, plotData.Item(x))
@@ -155,10 +155,15 @@ Public Class LogDisplayForm
     End Sub
 
     Private Sub DataCollectionTimer_Tick(sender As Object, e As EventArgs) Handles DataCollectionTimer.Tick
+        'Scale Input to graph picture box size
+        Dim random As Integer = RandomNumberFrom(0, 100)
+        random = (((DataGraphPictureBox.Height - 50) / maxInput) * random) + 25
         'Add new Random Data Point
-        DataList.Add(RandomNumberFrom(0, 100))
-        'Increase data set count (used for scaling)
-        'maxDataSet += 1
+        DataList.Add(random)
+        'If Data Set exceeds 30 seconds of data smoosh scaling
+        If DataList.Count >= maxDataSet Then
+            maxDataSet += 1
+        End If
         'Plot Current Data Set
         Plot(DataList)
     End Sub
