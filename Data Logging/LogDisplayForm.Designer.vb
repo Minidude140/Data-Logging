@@ -129,7 +129,7 @@ Partial Class LogDisplayForm
         Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.DataCollectionToolStripMenuItem})
         Me.MenuStrip.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip.Name = "MenuStrip"
-        Me.MenuStrip.Size = New System.Drawing.Size(1014, 30)
+        Me.MenuStrip.Size = New System.Drawing.Size(1014, 28)
         Me.MenuStrip.TabIndex = 7
         Me.MenuStrip.Text = "MenuStrip1"
         '
@@ -187,9 +187,9 @@ Partial Class LogDisplayForm
         '
         Me.ToolStrip.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.ToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.COMSelectToolStripComboBox, Me.ConnectCOMToolStripButton})
-        Me.ToolStrip.Location = New System.Drawing.Point(0, 30)
+        Me.ToolStrip.Location = New System.Drawing.Point(0, 28)
         Me.ToolStrip.Name = "ToolStrip"
-        Me.ToolStrip.Size = New System.Drawing.Size(1014, 31)
+        Me.ToolStrip.Size = New System.Drawing.Size(1014, 28)
         Me.ToolStrip.TabIndex = 8
         Me.ToolStrip.Text = "ToolStrip1"
         '

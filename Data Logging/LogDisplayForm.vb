@@ -8,7 +8,7 @@ Imports System.Threading
 Public Class LogDisplayForm
     Dim DataList As New List(Of Integer)
     Dim maxInput As Integer = 100
-    Dim maxDataSet As Integer = 300
+    Dim maxDataSet As Integer = 120
 
     '********************Custom Methods*****************************************
     Sub SetDefaults()
@@ -87,6 +87,8 @@ Public Class LogDisplayForm
     ''' </summary>
     ''' <param name="plotData"></param>
     Sub Plot(plotData As List(Of Integer))
+        'disable timer
+        DataCollectionTimer.Enabled = False
         'clear old data
         DataGraphPictureBox.Refresh()
         Dim g As Graphics = DataGraphPictureBox.CreateGraphics
@@ -95,12 +97,23 @@ Public Class LogDisplayForm
         Dim oldy As Integer
         'scales the X to be the number of pixels in the picture box by max input value. 
         g.ScaleTransform(CSng(DataGraphPictureBox.Width / maxDataSet), 1)
-        'iterate through the data and plot each point on the screen
-        For x = 0 To (plotData.Count - 1)
-            g.DrawLine(pen, oldx, oldy, x, plotData.Item(x))
-            oldx = x
-            oldy = plotData.Item(x)
-        Next
+        If FullDataSetRadioButton.Checked = True Or DataList.Count <= maxDataSet Then
+            'iterate through the entire data set and plot each point on the screen or when initial data is empty in 30s mode
+            For x = 0 To (plotData.Count - 1)
+                g.DrawLine(pen, oldx, oldy, x, plotData.Item(x))
+                oldx = x
+                oldy = plotData.Item(x)
+            Next
+        ElseIf ThirtySecondsRadioButton.Checked = True Then
+            'only plot the last 300 data points
+            For x = (plotData.Count - maxDataSet) To (plotData.Count - 1)
+                g.DrawLine(pen, oldx, oldy, x, plotData.Item(x))
+                oldx = x
+                oldy = plotData.Item(x)
+            Next
+        End If
+        're enable timer
+        DataCollectionTimer.Enabled = True
     End Sub
 
     ''' <summary>
@@ -140,14 +153,16 @@ Public Class LogDisplayForm
         ConnectCOM()
     End Sub
 
-    Private Sub StartLogButton_Click(sender As Object, e As EventArgs) Handles StartLogButton.Click
+    Private Sub StartLogButton_Click(sender As Object, e As EventArgs) Handles StartLogButton.Click,
+                                                                               StartDataCollectionToolMenuStrip.Click
         'Start Data Collection Timer
         If DataCollectionTimer.Enabled = False Then
             DataCollectionTimer.Enabled = True
         End If
     End Sub
 
-    Private Sub StopLogButton_Click(sender As Object, e As EventArgs) Handles StopLogButton.Click
+    Private Sub StopLogButton_Click(sender As Object, e As EventArgs) Handles StopLogButton.Click,
+                                                                              StopDataCollectionMenuStrip.Click
         'Stop Data Collection Timer
         If DataCollectionTimer.Enabled = True Then
             DataCollectionTimer.Enabled = False
@@ -160,9 +175,11 @@ Public Class LogDisplayForm
         random = (((DataGraphPictureBox.Height - 50) / maxInput) * random) + 25
         'Add new Random Data Point
         DataList.Add(random)
-        'If Data Set exceeds 30 seconds of data smoosh scaling
-        If DataList.Count >= maxDataSet Then
-            maxDataSet += 1
+        If FullDataSetRadioButton.Checked = True Then
+            'If Data Set exceeds 30 seconds of data smoosh scaling
+            If DataList.Count >= maxDataSet Then
+                maxDataSet += 1
+            End If
         End If
         'Plot Current Data Set
         Plot(DataList)
