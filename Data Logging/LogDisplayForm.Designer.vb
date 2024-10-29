@@ -42,7 +42,7 @@ Partial Class LogDisplayForm
         Me.ThirtySecondsMenuStrip = New System.Windows.Forms.ToolStripMenuItem()
         Me.FullDataSetMenuStrip = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip = New System.Windows.Forms.ToolStrip()
-        Me.ComboBoxToolStripComboBox = New System.Windows.Forms.ToolStripComboBox()
+        Me.COMSelectToolStripComboBox = New System.Windows.Forms.ToolStripComboBox()
         Me.ConnectCOMToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.DataGraphPictureBox = New System.Windows.Forms.PictureBox()
@@ -176,17 +176,17 @@ Partial Class LogDisplayForm
         'ToolStrip
         '
         Me.ToolStrip.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ComboBoxToolStripComboBox, Me.ConnectCOMToolStripButton})
+        Me.ToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.COMSelectToolStripComboBox, Me.ConnectCOMToolStripButton})
         Me.ToolStrip.Location = New System.Drawing.Point(0, 28)
         Me.ToolStrip.Name = "ToolStrip"
         Me.ToolStrip.Size = New System.Drawing.Size(1014, 28)
         Me.ToolStrip.TabIndex = 8
         Me.ToolStrip.Text = "ToolStrip1"
         '
-        'ComboBoxToolStripComboBox
+        'COMSelectToolStripComboBox
         '
-        Me.ComboBoxToolStripComboBox.Name = "ComboBoxToolStripComboBox"
-        Me.ComboBoxToolStripComboBox.Size = New System.Drawing.Size(121, 28)
+        Me.COMSelectToolStripComboBox.Name = "COMSelectToolStripComboBox"
+        Me.COMSelectToolStripComboBox.Size = New System.Drawing.Size(121, 28)
         '
         'ConnectCOMToolStripButton
         '
@@ -260,7 +260,7 @@ Partial Class LogDisplayForm
     Friend WithEvents FileToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents OpenFileMenuStrip As ToolStripMenuItem
     Friend WithEvents SaveFileMenuStrip As ToolStripMenuItem
-    Friend WithEvents ComboBoxToolStripComboBox As ToolStripComboBox
+    Friend WithEvents COMSelectToolStripComboBox As ToolStripComboBox
     Friend WithEvents ConnectCOMToolStripButton As ToolStripButton
     Friend WithEvents DataCollectionToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents StartDataCollectionToolMenuStrip As ToolStripMenuItem
