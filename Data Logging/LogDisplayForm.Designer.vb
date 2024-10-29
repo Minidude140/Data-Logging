@@ -121,7 +121,6 @@ Partial Class LogDisplayForm
         '
         'DataCollectionTimer
         '
-        Me.DataCollectionTimer.Interval = 250
         '
         'MenuStrip
         '
@@ -143,13 +142,13 @@ Partial Class LogDisplayForm
         'OpenFileMenuStrip
         '
         Me.OpenFileMenuStrip.Name = "OpenFileMenuStrip"
-        Me.OpenFileMenuStrip.Size = New System.Drawing.Size(224, 26)
+        Me.OpenFileMenuStrip.Size = New System.Drawing.Size(128, 26)
         Me.OpenFileMenuStrip.Text = "Open"
         '
         'SaveFileMenuStrip
         '
         Me.SaveFileMenuStrip.Name = "SaveFileMenuStrip"
-        Me.SaveFileMenuStrip.Size = New System.Drawing.Size(224, 26)
+        Me.SaveFileMenuStrip.Size = New System.Drawing.Size(128, 26)
         Me.SaveFileMenuStrip.Text = "Save"
         '
         'DataCollectionToolStripMenuItem

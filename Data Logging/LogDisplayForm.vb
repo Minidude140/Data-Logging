@@ -7,6 +7,8 @@
 Imports System.Threading
 Public Class LogDisplayForm
     Dim DataList As New List(Of Integer)
+    Dim maxInput As Integer = 100
+    Dim maxDataSet As Integer = 300
 
     '********************Custom Methods*****************************************
     Sub SetDefaults()
@@ -92,7 +94,7 @@ Public Class LogDisplayForm
         Dim oldx As Integer
         Dim oldy As Integer
         'scales the X to be the number of pixels in the picture box by 100
-        g.ScaleTransform(CSng(DataGraphPictureBox.Width / 100), 1)
+        g.ScaleTransform(CSng(DataGraphPictureBox.Width / maxDataSet), CSng(DataGraphPictureBox.Height / maxInput))
         'iterate through the data and plot each point on the screen
         For x = 0 To (plotData.Count - 1)
             g.DrawLine(pen, oldx, oldy, x, plotData.Item(x))
@@ -155,6 +157,8 @@ Public Class LogDisplayForm
     Private Sub DataCollectionTimer_Tick(sender As Object, e As EventArgs) Handles DataCollectionTimer.Tick
         'Add new Random Data Point
         DataList.Add(RandomNumberFrom(0, 100))
+        'Increase data set count (used for scaling)
+        'maxDataSet += 1
         'Plot Current Data Set
         Plot(DataList)
     End Sub
