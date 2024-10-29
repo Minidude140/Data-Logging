@@ -28,24 +28,24 @@ Partial Class LogDisplayForm
         Me.StartLogButton = New System.Windows.Forms.Button()
         Me.StopLogButton = New System.Windows.Forms.Button()
         Me.ThirtySecondsRadioButton = New System.Windows.Forms.RadioButton()
-        Me.EntireHistoryRadioButton = New System.Windows.Forms.RadioButton()
+        Me.FullDataSetRadioButton = New System.Windows.Forms.RadioButton()
         Me.DataCollectionTimer = New System.Windows.Forms.Timer(Me.components)
         Me.COMSerialPort = New System.IO.Ports.SerialPort(Me.components)
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.MenuStrip = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.OpenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OpenFileMenuStrip = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SaveFileMenuStrip = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DataCollectionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StartDataCollectionToolMenuStrip = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StopDataCollectionMenuStrip = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ThirtySecondsMenuStrip = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FullDataSetMenuStrip = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip = New System.Windows.Forms.ToolStrip()
         Me.ComboBoxToolStripComboBox = New System.Windows.Forms.ToolStripComboBox()
         Me.ConnectCOMToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.DataGraphPictureBox = New System.Windows.Forms.PictureBox()
-        Me.DataCollectionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.StartDataCollectionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.StopDataCollectionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DisplayLast30sToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DisplayFullDataSetToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         CType(Me.DataGraphPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -102,16 +102,16 @@ Partial Class LogDisplayForm
         Me.ThirtySecondsRadioButton.Text = "Display Last 30s"
         Me.ThirtySecondsRadioButton.UseVisualStyleBackColor = True
         '
-        'EntireHistoryRadioButton
+        'FullDataSetRadioButton
         '
-        Me.EntireHistoryRadioButton.AutoSize = True
-        Me.EntireHistoryRadioButton.Location = New System.Drawing.Point(320, 554)
-        Me.EntireHistoryRadioButton.Name = "EntireHistoryRadioButton"
-        Me.EntireHistoryRadioButton.Size = New System.Drawing.Size(160, 21)
-        Me.EntireHistoryRadioButton.TabIndex = 6
-        Me.EntireHistoryRadioButton.TabStop = True
-        Me.EntireHistoryRadioButton.Text = "Display Full Data Set"
-        Me.EntireHistoryRadioButton.UseVisualStyleBackColor = True
+        Me.FullDataSetRadioButton.AutoSize = True
+        Me.FullDataSetRadioButton.Location = New System.Drawing.Point(320, 554)
+        Me.FullDataSetRadioButton.Name = "FullDataSetRadioButton"
+        Me.FullDataSetRadioButton.Size = New System.Drawing.Size(160, 21)
+        Me.FullDataSetRadioButton.TabIndex = 6
+        Me.FullDataSetRadioButton.TabStop = True
+        Me.FullDataSetRadioButton.Text = "Display Full Data Set"
+        Me.FullDataSetRadioButton.UseVisualStyleBackColor = True
         '
         'MenuStrip
         '
@@ -125,22 +125,53 @@ Partial Class LogDisplayForm
         '
         'FileToolStripMenuItem
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenToolStripMenuItem, Me.SaveToolStripMenuItem})
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenFileMenuStrip, Me.SaveFileMenuStrip})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(46, 24)
         Me.FileToolStripMenuItem.Text = "File"
         '
-        'OpenToolStripMenuItem
+        'OpenFileMenuStrip
         '
-        Me.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem"
-        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
-        Me.OpenToolStripMenuItem.Text = "Open"
+        Me.OpenFileMenuStrip.Name = "OpenFileMenuStrip"
+        Me.OpenFileMenuStrip.Size = New System.Drawing.Size(224, 26)
+        Me.OpenFileMenuStrip.Text = "Open"
         '
-        'SaveToolStripMenuItem
+        'SaveFileMenuStrip
         '
-        Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
-        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
-        Me.SaveToolStripMenuItem.Text = "Save"
+        Me.SaveFileMenuStrip.Name = "SaveFileMenuStrip"
+        Me.SaveFileMenuStrip.Size = New System.Drawing.Size(224, 26)
+        Me.SaveFileMenuStrip.Text = "Save"
+        '
+        'DataCollectionToolStripMenuItem
+        '
+        Me.DataCollectionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StartDataCollectionToolMenuStrip, Me.StopDataCollectionMenuStrip, Me.ThirtySecondsMenuStrip, Me.FullDataSetMenuStrip})
+        Me.DataCollectionToolStripMenuItem.Name = "DataCollectionToolStripMenuItem"
+        Me.DataCollectionToolStripMenuItem.Size = New System.Drawing.Size(126, 24)
+        Me.DataCollectionToolStripMenuItem.Text = "Data Collection"
+        '
+        'StartDataCollectionToolMenuStrip
+        '
+        Me.StartDataCollectionToolMenuStrip.Name = "StartDataCollectionToolMenuStrip"
+        Me.StartDataCollectionToolMenuStrip.Size = New System.Drawing.Size(230, 26)
+        Me.StartDataCollectionToolMenuStrip.Text = "Start Data Collection"
+        '
+        'StopDataCollectionMenuStrip
+        '
+        Me.StopDataCollectionMenuStrip.Name = "StopDataCollectionMenuStrip"
+        Me.StopDataCollectionMenuStrip.Size = New System.Drawing.Size(230, 26)
+        Me.StopDataCollectionMenuStrip.Text = "Stop Data Collection"
+        '
+        'ThirtySecondsMenuStrip
+        '
+        Me.ThirtySecondsMenuStrip.Name = "ThirtySecondsMenuStrip"
+        Me.ThirtySecondsMenuStrip.Size = New System.Drawing.Size(230, 26)
+        Me.ThirtySecondsMenuStrip.Text = "Display Last 30s"
+        '
+        'FullDataSetMenuStrip
+        '
+        Me.FullDataSetMenuStrip.Name = "FullDataSetMenuStrip"
+        Me.FullDataSetMenuStrip.Size = New System.Drawing.Size(230, 26)
+        Me.FullDataSetMenuStrip.Text = "Display Full Data Set"
         '
         'ToolStrip
         '
@@ -185,37 +216,6 @@ Partial Class LogDisplayForm
         Me.DataGraphPictureBox.TabIndex = 4
         Me.DataGraphPictureBox.TabStop = False
         '
-        'DataCollectionToolStripMenuItem
-        '
-        Me.DataCollectionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StartDataCollectionToolStripMenuItem, Me.StopDataCollectionToolStripMenuItem, Me.DisplayLast30sToolStripMenuItem, Me.DisplayFullDataSetToolStripMenuItem})
-        Me.DataCollectionToolStripMenuItem.Name = "DataCollectionToolStripMenuItem"
-        Me.DataCollectionToolStripMenuItem.Size = New System.Drawing.Size(126, 24)
-        Me.DataCollectionToolStripMenuItem.Text = "Data Collection"
-        '
-        'StartDataCollectionToolStripMenuItem
-        '
-        Me.StartDataCollectionToolStripMenuItem.Name = "StartDataCollectionToolStripMenuItem"
-        Me.StartDataCollectionToolStripMenuItem.Size = New System.Drawing.Size(230, 26)
-        Me.StartDataCollectionToolStripMenuItem.Text = "Start Data Collection"
-        '
-        'StopDataCollectionToolStripMenuItem
-        '
-        Me.StopDataCollectionToolStripMenuItem.Name = "StopDataCollectionToolStripMenuItem"
-        Me.StopDataCollectionToolStripMenuItem.Size = New System.Drawing.Size(230, 26)
-        Me.StopDataCollectionToolStripMenuItem.Text = "Stop Data Collection"
-        '
-        'DisplayLast30sToolStripMenuItem
-        '
-        Me.DisplayLast30sToolStripMenuItem.Name = "DisplayLast30sToolStripMenuItem"
-        Me.DisplayLast30sToolStripMenuItem.Size = New System.Drawing.Size(230, 26)
-        Me.DisplayLast30sToolStripMenuItem.Text = "Display Last 30s"
-        '
-        'DisplayFullDataSetToolStripMenuItem
-        '
-        Me.DisplayFullDataSetToolStripMenuItem.Name = "DisplayFullDataSetToolStripMenuItem"
-        Me.DisplayFullDataSetToolStripMenuItem.Size = New System.Drawing.Size(230, 26)
-        Me.DisplayFullDataSetToolStripMenuItem.Text = "Display Full Data Set"
-        '
         'LogDisplayForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -223,7 +223,7 @@ Partial Class LogDisplayForm
         Me.ClientSize = New System.Drawing.Size(1014, 608)
         Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.ToolStrip)
-        Me.Controls.Add(Me.EntireHistoryRadioButton)
+        Me.Controls.Add(Me.FullDataSetRadioButton)
         Me.Controls.Add(Me.ThirtySecondsRadioButton)
         Me.Controls.Add(Me.DataGraphPictureBox)
         Me.Controls.Add(Me.StopLogButton)
@@ -250,7 +250,7 @@ Partial Class LogDisplayForm
     Friend WithEvents StopLogButton As Button
     Friend WithEvents DataGraphPictureBox As PictureBox
     Friend WithEvents ThirtySecondsRadioButton As RadioButton
-    Friend WithEvents EntireHistoryRadioButton As RadioButton
+    Friend WithEvents FullDataSetRadioButton As RadioButton
     Friend WithEvents DataCollectionTimer As Timer
     Friend WithEvents COMSerialPort As IO.Ports.SerialPort
     Friend WithEvents ToolTip As ToolTip
@@ -258,13 +258,13 @@ Partial Class LogDisplayForm
     Friend WithEvents ToolStrip As ToolStrip
     Friend WithEvents StatusStrip As StatusStrip
     Friend WithEvents FileToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents OpenToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents SaveToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents OpenFileMenuStrip As ToolStripMenuItem
+    Friend WithEvents SaveFileMenuStrip As ToolStripMenuItem
     Friend WithEvents ComboBoxToolStripComboBox As ToolStripComboBox
     Friend WithEvents ConnectCOMToolStripButton As ToolStripButton
     Friend WithEvents DataCollectionToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents StartDataCollectionToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents StopDataCollectionToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents DisplayLast30sToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents DisplayFullDataSetToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents StartDataCollectionToolMenuStrip As ToolStripMenuItem
+    Friend WithEvents StopDataCollectionMenuStrip As ToolStripMenuItem
+    Friend WithEvents ThirtySecondsMenuStrip As ToolStripMenuItem
+    Friend WithEvents FullDataSetMenuStrip As ToolStripMenuItem
 End Class
