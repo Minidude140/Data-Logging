@@ -8,7 +8,7 @@ Imports System.Threading
 Public Class LogDisplayForm
     Dim DataList As New List(Of Integer)
     Dim limitDataList As New List(Of Integer)
-    Dim maxInput As Integer = 100
+    Dim maxInput As Integer = 255
     Dim maxDataSet As Integer = 300
     Dim penColor As Color
 
@@ -27,7 +27,7 @@ Public Class LogDisplayForm
     ''' Attempt Connection To Selected COM Port.  Verifies Selected COM is a QY@t Board
     ''' </summary>
     Sub ConnectCOM()
-        COMSerialPort.PortName = COMSelectToolStripComboBox.SelectedIndex
+        COMSerialPort.PortName = COMSelectToolStripComboBox.SelectedItem
         COMSerialPort.BaudRate = 9600
         Try
             'Try to Open Selected COM
@@ -101,24 +101,32 @@ Public Class LogDisplayForm
         Dim oldy As Integer
         'scales the X to be the number of pixels in the picture box by max input value. 
         g.ScaleTransform(CSng(DataGraphPictureBox.Width / maxDataSet), 1)
-        ' If FullDataSetRadioButton.Checked = True Or DataList.Count <= maxDataSet Then
         'iterate through the entire data set and plot each point on the screen or when initial data is empty in 30s mode
         For x = 0 To (plotData.Count - 1)
-                g.DrawLine(pen, oldx, oldy, x, plotData.Item(x))
-                oldx = x
-                oldy = plotData.Item(x)
-            Next
-            'ElseIf ThirtySecondsRadioButton.Checked = True Then
-            '    'only plot the last 300 data points
-            '    For x = (plotData.Count - maxDataSet) To (plotData.Count - 1)
-            '        g.DrawLine(pen, oldx, oldy, x, plotData.Item(x))
-            '        oldx = x
-            '        oldy = plotData.Item(x)
-            '    Next
-            'End If
-            're enable timer
-            DataCollectionTimer.Enabled = True
+            g.DrawLine(pen, oldx, oldy, x, plotData.Item(x))
+            oldx = x
+            oldy = plotData.Item(x)
+        Next
+        DataCollectionTimer.Enabled = True
     End Sub
+
+    ''' <summary>
+    ''' Read Analog Input 1 and Return High MSB Byte
+    ''' </summary>
+    Function Qy_AnalogReadA1() As Integer
+        'command to QY board to read analog data
+        Dim command(0) As Byte
+        command(0) = &B1010001
+        COMSerialPort.Write(command, 0, 1)
+        'Wait for Response
+        Thread.Sleep(5)
+        'create an array of bytes with the length of input data
+        Dim data(COMSerialPort.BytesToRead) As Byte
+        'Populate array with input data
+        COMSerialPort.Read(data, 0, COMSerialPort.BytesToRead)
+        'Return the first Byte (MSB) 
+        Return data(0)
+    End Function
 
     ''' <summary>
     ''' Given a minimum and maximum, returns a random number within range.  
@@ -181,10 +189,11 @@ Public Class LogDisplayForm
 
     Private Sub DataCollectionTimer_Tick(sender As Object, e As EventArgs) Handles DataCollectionTimer.Tick
         'Scale Input to graph picture box size
-        Dim random As Integer = RandomNumberFrom(0, 100)
-        random = (((DataGraphPictureBox.Height - 50) / maxInput) * random) + 25
+        ' Dim random As Integer = RandomNumberFrom(0, 100)
+        'Random = (((DataGraphPictureBox.Height - 50) / maxInput) * random) + 25
         'Add new Random Data Point
-        DataList.Add(random)
+        'DataList.Add(random)
+        DataList.Add(Qy_AnalogReadA1())
         If FullDataSetRadioButton.Checked = True Then
             'If Data Set exceeds 30 seconds of data smoosh scaling
             If DataList.Count >= maxDataSet Then
