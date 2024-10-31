@@ -21,6 +21,8 @@ Public Class LogDisplayForm
         FullDataSetMenuStrip.Enabled = False
         'Set pen color
         penColor = Color.Black
+        'Disable Start Logging Button Until A QY@t Board is Connected
+        StartLogButton.Enabled = False
     End Sub
 
     ''' <summary>
@@ -36,15 +38,21 @@ Public Class LogDisplayForm
             If GetQySettings() = True Then
                 'Verified Selected COM as QY@t Board
                 MsgBox("Successfully Connected to Selected COM Port.  Verified QY@ Board Input")
+                'Enable Start Logging Button
+                StartLogButton.Enabled = True
             Else
                 'Not a QY@t Board Close COM
                 MsgBox("Selected COM Port is not a QY@ Board")
                 COMSerialPort.Close()
+                'Disable Start Logging Button
+                StartLogButton.Enabled = False
             End If
         Catch ex As Exception
             'Could Not Connect Close COM
             MsgBox("Sorry We Could Not Connect to Selected COM")
             COMSerialPort.Close()
+            'Disable Start Logging Button
+            StartLogButton.Enabled = False
         End Try
     End Sub
 
