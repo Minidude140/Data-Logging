@@ -9,14 +9,14 @@
 '[]Add File Output
 '[]Add File Input
 '[]Disconnect Error Handling
-'[]Add Variable Data Sample Rate
+'[*]Add Variable Data Sample Rate
 
 Imports System.Threading
 Public Class LogDisplayForm
     Dim DataList As New List(Of Integer)
     Dim limitDataList As New List(Of Integer)
     Dim maxInput As Integer = 249
-    Dim maxDataSet As Integer = 300
+    Dim maxDataSet As Integer
     Dim penColor As Color
 
     '********************Custom Methods*****************************************
@@ -30,6 +30,10 @@ Public Class LogDisplayForm
         penColor = Color.Black
         'Disable Start Logging Button Until A QY@t Board is Connected
         StartLogButton.Enabled = False
+        'Start with 10 samples per second data rate
+        maxDataSet = 300
+        DataCollectionTimer.Interval = 100
+        SampleRateTextBox.Text = "10"
     End Sub
 
     ''' <summary>
@@ -164,6 +168,23 @@ Public Class LogDisplayForm
         Return _random
     End Function
 
+    Function VerifySampleRate() As Boolean
+        Dim Valid As Boolean = False
+        If IsNumeric(SampleRateTextBox.Text) Then
+            If CInt(SampleRateTextBox.Text) > 0 And CInt(SampleRateTextBox.Text) < 101 Then
+                MsgBox("Selection is Valid")
+                Valid = True
+            Else
+                MsgBox("Please Enter a Number from 1 t0 100")
+                SampleRateTextBox.Text = "10"
+            End If
+        Else
+            MsgBox("Please Enter a Number")
+            SampleRateTextBox.Text = "10"
+        End If
+        Return Valid
+    End Function
+
     '********************Event Handlers*****************************************
 
     Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
@@ -254,5 +275,16 @@ Public Class LogDisplayForm
     Private Sub FullDataSetMenuStrip_Click(sender As Object, e As EventArgs) Handles FullDataSetMenuStrip.Click
         'Update radio buttons when menu strip buttons are clicked
         FullDataSetRadioButton.Checked = True
+    End Sub
+
+    Private Sub SampleRateTextBox_PreviewKeyDown(sender As Object, e As PreviewKeyDownEventArgs) Handles SampleRateTextBox.PreviewKeyDown
+        If CInt(e.KeyValue) = 13 Then
+            If VerifySampleRate() = True Then
+                'Update sample Rate and max data set
+                Dim newSampleRate As Integer = CInt(SampleRateTextBox.Text)
+                DataCollectionTimer.Interval = 1000 / newSampleRate
+                maxDataSet = newSampleRate * 30
+            End If
+        End If
     End Sub
 End Class

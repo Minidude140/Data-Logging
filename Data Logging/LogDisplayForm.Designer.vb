@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class LogDisplayForm
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class LogDisplayForm
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.ExitButton = New System.Windows.Forms.Button()
@@ -47,6 +47,8 @@ Partial Class LogDisplayForm
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.DataGraphPictureBox = New System.Windows.Forms.PictureBox()
         Me.UpdateGraphTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.SampleRateLabel = New System.Windows.Forms.Label()
+        Me.SampleRateTextBox = New System.Windows.Forms.TextBox()
         Me.MenuStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         CType(Me.DataGraphPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -234,11 +236,29 @@ Partial Class LogDisplayForm
         '
         Me.UpdateGraphTimer.Interval = 500
         '
+        'SampleRateLabel
+        '
+        Me.SampleRateLabel.AutoSize = True
+        Me.SampleRateLabel.Location = New System.Drawing.Point(533, 514)
+        Me.SampleRateLabel.Name = "SampleRateLabel"
+        Me.SampleRateLabel.Size = New System.Drawing.Size(123, 17)
+        Me.SampleRateLabel.TabIndex = 11
+        Me.SampleRateLabel.Text = "Data Sample Rate"
+        '
+        'SampleRateTextBox
+        '
+        Me.SampleRateTextBox.Location = New System.Drawing.Point(536, 553)
+        Me.SampleRateTextBox.Name = "SampleRateTextBox"
+        Me.SampleRateTextBox.Size = New System.Drawing.Size(113, 22)
+        Me.SampleRateTextBox.TabIndex = 12
+        '
         'LogDisplayForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1014, 608)
+        Me.Controls.Add(Me.SampleRateTextBox)
+        Me.Controls.Add(Me.SampleRateLabel)
         Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.ToolStrip)
         Me.Controls.Add(Me.FullDataSetRadioButton)
@@ -286,4 +306,6 @@ Partial Class LogDisplayForm
     Friend WithEvents ThirtySecondsMenuStrip As ToolStripMenuItem
     Friend WithEvents FullDataSetMenuStrip As ToolStripMenuItem
     Friend WithEvents UpdateGraphTimer As Timer
+    Friend WithEvents SampleRateLabel As Label
+    Friend WithEvents SampleRateTextBox As TextBox
 End Class
