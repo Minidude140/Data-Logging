@@ -4,6 +4,13 @@
 'Data Logging Assignment
 'GitHub: https://github.com/Minidude140/Data-Logging
 
+
+'TODO:
+'[]Add File Output
+'[]Add File Input
+'[]Disconnect Error Handling
+'[]Add Variable Data Sample Rate
+
 Imports System.Threading
 Public Class LogDisplayForm
     Dim DataList As New List(Of Integer)

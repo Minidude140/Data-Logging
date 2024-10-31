@@ -82,7 +82,7 @@ Partial Class LogDisplayForm
         Me.StartLogButton.Size = New System.Drawing.Size(139, 68)
         Me.StartLogButton.TabIndex = 2
         Me.StartLogButton.Text = "Start Data" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Collection"
-        Me.ToolTip.SetToolTip(Me.StartLogButton, "Begin Collecting Data From COM Input")
+        Me.ToolTip.SetToolTip(Me.StartLogButton, "Begin Collecting Data From COM Input" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10))
         Me.StartLogButton.UseVisualStyleBackColor = True
         '
         'StopLogButton
@@ -208,7 +208,8 @@ Partial Class LogDisplayForm
         Me.ConnectCOMToolStripButton.Name = "ConnectCOMToolStripButton"
         Me.ConnectCOMToolStripButton.Size = New System.Drawing.Size(29, 25)
         Me.ConnectCOMToolStripButton.Text = "ToolStripButton1"
-        Me.ConnectCOMToolStripButton.ToolTipText = "Attempt to Connect to Selected COM Port"
+        Me.ConnectCOMToolStripButton.ToolTipText = "Attempt to Connect to Selected COM Port" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "(Must Successfully Connect Before Loggin" &
+    "g Can Begin)"
         '
         'StatusStrip
         '
