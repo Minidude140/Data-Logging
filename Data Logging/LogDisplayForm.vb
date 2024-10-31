@@ -8,7 +8,7 @@ Imports System.Threading
 Public Class LogDisplayForm
     Dim DataList As New List(Of Integer)
     Dim limitDataList As New List(Of Integer)
-    Dim maxInput As Integer = 255
+    Dim maxInput As Integer = 249
     Dim maxDataSet As Integer = 300
     Dim penColor As Color
 
@@ -189,11 +189,10 @@ Public Class LogDisplayForm
 
     Private Sub DataCollectionTimer_Tick(sender As Object, e As EventArgs) Handles DataCollectionTimer.Tick
         'Scale Input to graph picture box size
-        ' Dim random As Integer = RandomNumberFrom(0, 100)
-        'Random = (((DataGraphPictureBox.Height - 50) / maxInput) * random) + 25
-        'Add new Random Data Point
-        'DataList.Add(random)
-        DataList.Add(Qy_AnalogReadA1())
+        Dim newInput As Integer = Qy_AnalogReadA1()
+        newInput = (((DataGraphPictureBox.Height - 50) / maxInput) * newInput) + 25
+        'Add New Data Point to Data Set
+        DataList.Add(newInput)
         If FullDataSetRadioButton.Checked = True Then
             'If Data Set exceeds 30 seconds of data smoosh scaling
             If DataList.Count >= maxDataSet Then
