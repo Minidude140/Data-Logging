@@ -138,9 +138,11 @@ Public Class LogDisplayForm
     End Sub
 
     ''' <summary>
-    ''' Read Analog Input 1 and Return High MSB Byte
+    ''' Read Analog Input 1.  Return High Byte
     ''' </summary>
     Function Qy_AnalogReadA1() As Integer
+        'High and Low Byte Data
+        Dim Result(1) As Byte
         'command to QY board to read analog data
         Dim command(0) As Byte
         command(0) = &B1010001
@@ -151,7 +153,12 @@ Public Class LogDisplayForm
         Dim data(COMSerialPort.BytesToRead) As Byte
         'Populate array with input data
         COMSerialPort.Read(data, 0, COMSerialPort.BytesToRead)
-        'Return the first Byte (MSB) 
+        'Save the first Byte (MSB) 
+        InputDataListH.Add(data(0))
+        'Save the second Byte (LSB)
+        InputDataListL.Add(data(1))
+        'Save TimeStamp for Data Collection
+        InputDataTime.Add(DateTime.Now.ToString("yyMMddhhmmssff"))
         Return data(0)
     End Function
 
@@ -200,7 +207,7 @@ Public Class LogDisplayForm
         FileOpen(fileNumber, fileName, OpenMode.Append)
         WriteLine(fileNumber)
         For I = 0 To (DataList.Count - 1)
-            Write(fileNumber, $"$$AN1,<{InputDataListH(I)}>,<{InputDataTime(I)}")
+            Write(fileNumber, $"$$AN1,<{InputDataListH(I)}>,<{InputDataListL(I)}>,<{InputDataTime(I)}")
             WriteLine(fileNumber)
         Next
         FileClose(fileNumber)
@@ -251,8 +258,6 @@ Public Class LogDisplayForm
         Dim newInput As Integer = Qy_AnalogReadA1()
         'Add Raw Data High Byte to Input List
         InputDataListH.Add(newInput)
-        'Add TimeStamp for Data Collection
-        InputDataTime.Add(DateTime.Now.ToString("yyMMddhhmmssff"))
         'Scale Input to graph picture box size
         newInput = (((DataGraphPictureBox.Height - 50) / maxInput) * newInput) + 25
         'Add New Data Point to Data Set
