@@ -18,7 +18,9 @@ Public Class LogDisplayForm
     'Data List formatted for Graphing (only 30 Seconds of Data)
     Dim limitDataList As New List(Of Integer)
     'Raw Data Input List
-    Dim InputDataList As New List(Of Integer)
+    Dim InputDataListH As New List(Of Integer)
+    Dim InputDataListL As New List(Of Integer)
+    Dim InputDataTime As New List(Of String)
     'Max Input/Data Set Used for Scaling Graphing
     Dim maxInput As Integer = 249
     Dim maxDataSet As Integer
@@ -198,7 +200,7 @@ Public Class LogDisplayForm
         FileOpen(fileNumber, fileName, OpenMode.Append)
         WriteLine(fileNumber)
         For I = 0 To (DataList.Count - 1)
-            Write(fileNumber, $"$$AN1,<{InputDataList(I)}>,<{DateTime.Now.ToString("yyMMddhhMMmm")}")
+            Write(fileNumber, $"$$AN1,<{InputDataListH(I)}>,<{InputDataTime(I)}")
             WriteLine(fileNumber)
         Next
         FileClose(fileNumber)
@@ -247,8 +249,10 @@ Public Class LogDisplayForm
     Private Sub DataCollectionTimer_Tick(sender As Object, e As EventArgs) Handles DataCollectionTimer.Tick
         'Collect High Byte of Analog 1
         Dim newInput As Integer = Qy_AnalogReadA1()
-        'Add Raw Data to Input List
-        InputDataList.Add(newInput)
+        'Add Raw Data High Byte to Input List
+        InputDataListH.Add(newInput)
+        'Add TimeStamp for Data Collection
+        InputDataTime.Add(DateTime.Now.ToString("yyMMddhhmmssff"))
         'Scale Input to graph picture box size
         newInput = (((DataGraphPictureBox.Height - 50) / maxInput) * newInput) + 25
         'Add New Data Point to Data Set
