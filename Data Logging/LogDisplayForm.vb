@@ -6,17 +6,23 @@
 
 
 'TODO:
-'[]Add File Output
+'[1/2]Add File Output {need to adjust Code to Save Low Byte}
 '[]Add File Input
 '[]Disconnect Error Handling
 '[*]Add Variable Data Sample Rate
 
 Imports System.Threading
 Public Class LogDisplayForm
+    'Data list formatted for Graphing
     Dim DataList As New List(Of Integer)
+    'Data List formatted for Graphing (only 30 Seconds of Data)
     Dim limitDataList As New List(Of Integer)
+    'Raw Data Input List
+    Dim InputDataList As New List(Of Integer)
+    'Max Input/Data Set Used for Scaling Graphing
     Dim maxInput As Integer = 249
     Dim maxDataSet As Integer
+
     Dim penColor As Color
 
     '********************Custom Methods*****************************************
@@ -187,21 +193,17 @@ Public Class LogDisplayForm
 
     Sub ExportData()
         'Name file and open
-        Dim fileName As String = "..\..\..\Game" & DateTime.Now.ToString("yyyMMddhhmmssmm") & ".txt"
+        Dim fileName As String = "..\..\..\log_" & DateTime.Now.ToString("yyMMddhh") & ".log"
         Dim fileNumber As Integer = FreeFile()
         FileOpen(fileNumber, fileName, OpenMode.Append)
         WriteLine(fileNumber)
-        For I = 0 To DataList.Count
-
+        For I = 0 To (DataList.Count - 1)
+            Write(fileNumber, $"$$AN1,<{InputDataList(I)}>,<{DateTime.Now.ToString("yyMMddhhMMmm")}")
             WriteLine(fileNumber)
         Next
         FileClose(fileNumber)
-        'remove the . in the fileName (except the .txt)
-        fileName = Replace(fileName, ".", "", 1, 6)
-        'Remove the \ in the file name
-        fileName = Replace(fileName, "\", "", 1, -1)
         'Prompt user that the game has been saved
-        MsgBox("Your Game Has Been Saved as: " + fileName)
+        MsgBox("Your Log Has Been Saved as: " + fileName)
     End Sub
 
     '********************Event Handlers*****************************************
@@ -243,8 +245,11 @@ Public Class LogDisplayForm
     End Sub
 
     Private Sub DataCollectionTimer_Tick(sender As Object, e As EventArgs) Handles DataCollectionTimer.Tick
-        'Scale Input to graph picture box size
+        'Collect High Byte of Analog 1
         Dim newInput As Integer = Qy_AnalogReadA1()
+        'Add Raw Data to Input List
+        InputDataList.Add(newInput)
+        'Scale Input to graph picture box size
         newInput = (((DataGraphPictureBox.Height - 50) / maxInput) * newInput) + 25
         'Add New Data Point to Data Set
         DataList.Add(newInput)
@@ -305,5 +310,10 @@ Public Class LogDisplayForm
                 maxDataSet = newSampleRate * 30
             End If
         End If
+    End Sub
+
+    Private Sub SaveDataButton_Click(sender As Object, e As EventArgs) Handles SaveDataButton.Click,
+                                                                               SaveFileMenuStrip.Click
+        ExportData()
     End Sub
 End Class
