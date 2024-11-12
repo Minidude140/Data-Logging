@@ -251,6 +251,7 @@ Partial Class LogDisplayForm
         Me.SampleRateTextBox.Name = "SampleRateTextBox"
         Me.SampleRateTextBox.Size = New System.Drawing.Size(113, 22)
         Me.SampleRateTextBox.TabIndex = 12
+        Me.ToolTip.SetToolTip(Me.SampleRateTextBox, "Press Enter to Submit Sample Rate")
         '
         'LogDisplayForm
         '

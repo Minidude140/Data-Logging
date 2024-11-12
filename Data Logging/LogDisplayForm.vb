@@ -185,6 +185,25 @@ Public Class LogDisplayForm
         Return Valid
     End Function
 
+    Sub ExportData()
+        'Name file and open
+        Dim fileName As String = "..\..\..\Game" & DateTime.Now.ToString("yyyMMddhhmmssmm") & ".txt"
+        Dim fileNumber As Integer = FreeFile()
+        FileOpen(fileNumber, fileName, OpenMode.Append)
+        WriteLine(fileNumber)
+        For I = 0 To DataList.Count
+
+            WriteLine(fileNumber)
+        Next
+        FileClose(fileNumber)
+        'remove the . in the fileName (except the .txt)
+        fileName = Replace(fileName, ".", "", 1, 6)
+        'Remove the \ in the file name
+        fileName = Replace(fileName, "\", "", 1, -1)
+        'Prompt user that the game has been saved
+        MsgBox("Your Game Has Been Saved as: " + fileName)
+    End Sub
+
     '********************Event Handlers*****************************************
 
     Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
