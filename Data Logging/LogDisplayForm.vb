@@ -6,7 +6,7 @@
 
 
 'TODO:
-'[1/2]Add File Output {need to adjust Code to Save Low Byte}
+'[*]Add File Output
 '[]Add File Input
 '[]Disconnect Error Handling
 '[*]Add Variable Data Sample Rate
@@ -57,6 +57,8 @@ Public Class LogDisplayForm
             If GetQySettings() = True Then
                 'Verified Selected COM as QY@t Board
                 MsgBox("Successfully Connected to Selected COM Port.  Verified QY@ Board Input")
+                'Update status strip
+                COMStatusLabel.Text = "Connected To " + COMSerialPort.PortName
                 'Enable Start Logging Button
                 StartLogButton.Enabled = True
             Else
@@ -183,6 +185,10 @@ Public Class LogDisplayForm
         Return _random
     End Function
 
+    ''' <summary>
+    ''' Verify the User Input Sample Rate is Valid
+    ''' </summary>
+    ''' <returns></returns>
     Function VerifySampleRate() As Boolean
         Dim Valid As Boolean = False
         If IsNumeric(SampleRateTextBox.Text) Then
@@ -200,6 +206,9 @@ Public Class LogDisplayForm
         Return Valid
     End Function
 
+    ''' <summary>
+    ''' Save Data Lists to a Log File with an Hourly Time Stamp
+    ''' </summary>
     Sub ExportData()
         'Name file and open
         Dim fileName As String = "..\..\..\log_" & DateTime.Now.ToString("yyMMddhh") & ".log"
@@ -212,7 +221,7 @@ Public Class LogDisplayForm
         Next
         FileClose(fileNumber)
         'Prompt user that the game has been saved
-        MsgBox("Your Log Has Been Saved as: " + fileName)
+        FileSaveStatusLabel.Text = "Your Log Has Been Saved as: " + fileName
     End Sub
 
     '********************Event Handlers*****************************************
