@@ -216,7 +216,7 @@ Public Class LogDisplayForm
         FileOpen(fileNumber, fileName, OpenMode.Append)
         WriteLine(fileNumber)
         For I = 0 To (DataList.Count - 1)
-            Write(fileNumber, $"$$AN1,<{InputDataListH(I)}>,<{InputDataListL(I)}>,<{InputDataTime(I)}")
+            Write(fileNumber, $"$$AN1,<{InputDataListH(I)}>,<{InputDataListL(I)}>,<{InputDataTime(I)}>")
             WriteLine(fileNumber)
         Next
         FileClose(fileNumber)
