@@ -7,7 +7,7 @@
 
 'TODO:
 '[*]Add File Output
-'[]Add File Input
+'[1/2]Add File Input (Data Input Complete Need to Graph Data)
 '[]Disconnect Error Handling
 '[*]Add Variable Data Sample Rate
 
@@ -224,6 +224,56 @@ Public Class LogDisplayForm
         FileSaveStatusLabel.Text = "Your Log Has Been Saved as: " + fileName
     End Sub
 
+    ''' <summary>
+    ''' Opens File Dialog and Saves Data to Lists From Records
+    ''' </summary>
+    Sub SaveFileData()
+        Dim fileNumber As Integer = FreeFile()
+        Dim currentRecord As String
+        Dim highByte As String
+        Dim lowByte As String
+        Dim timeStamp As String
+        Dim splitRecord(3) As String
+        Try
+            OpenFileDialog.ShowDialog()
+            Dim fileName As String = OpenFileDialog.FileName
+            FileOpen(fileNumber, fileName, OpenMode.Input)
+            Do Until EOF(fileNumber)
+                'input the current record
+                Input(fileNumber, currentRecord)
+                If currentRecord = "" Then
+                    'if record is empty ignore
+                Else
+                    'Split Line into Input, High Byte, Low Byte, and Time Stamp
+                    splitRecord = currentRecord.Split(",")
+                    'Save High, Low, and Time Stamp
+                    highByte = splitRecord(1)
+                    lowByte = splitRecord(2)
+                    timeStamp = splitRecord(3)
+                    'Clean High Byte
+                    highByte = highByte.Replace("<", "")
+                    highByte = highByte.Replace(">", "")
+                    'Clean Low Byte
+                    lowByte = lowByte.Replace("<", "")
+                    lowByte = lowByte.Replace(">", "")
+                    'Clean Low Byte
+                    timeStamp = timeStamp.Replace("<", "")
+                    timeStamp = timeStamp.Replace(">", "")
+                    'Add High Byte to data list
+                    InputDataListH.Add(highByte)
+                    'Add Low Byte to Data list
+                    InputDataListL.Add(lowByte)
+                    'Add Time Stamp to Data List
+                    InputDataTime.Add(timeStamp)
+                End If
+            Loop
+            'Close File
+            FileClose(fileNumber)
+        Catch ex As Exception
+            MsgBox("Sorry an Error Occurred While Reading the File")
+        End Try
+    End Sub
+
     '********************Event Handlers*****************************************
 
     Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
@@ -334,6 +384,17 @@ Public Class LogDisplayForm
     End Sub
 
     Private Sub OpenFileMenuStrip_Click(sender As Object, e As EventArgs) Handles OpenFileMenuStrip.Click
+        'Clear Current Data Sets
+        InputDataListH.Clear()
+        InputDataListL.Clear()
+        InputDataTime.Clear()
+        DataList.Clear()
+        limitDataList.Clear()
+        'Open File and Save data to lists
+        SaveFileData()
 
     End Sub
 End Class
+
+'Qs For Prof
+'1. Initial Directory
