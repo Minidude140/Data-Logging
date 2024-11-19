@@ -46,12 +46,12 @@ Partial Class LogDisplayForm
         Me.COMSelectToolStripComboBox = New System.Windows.Forms.ToolStripComboBox()
         Me.ConnectCOMToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
-        Me.DataGraphPictureBox = New System.Windows.Forms.PictureBox()
-        Me.UpdateGraphTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.SampleRateLabel = New System.Windows.Forms.Label()
         Me.COMStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.BlankStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.FileSaveStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.DataGraphPictureBox = New System.Windows.Forms.PictureBox()
+        Me.UpdateGraphTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.SampleRateLabel = New System.Windows.Forms.Label()
         Me.MenuStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
@@ -143,7 +143,7 @@ Partial Class LogDisplayForm
         Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.DataCollectionToolStripMenuItem})
         Me.MenuStrip.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip.Name = "MenuStrip"
-        Me.MenuStrip.Size = New System.Drawing.Size(1014, 30)
+        Me.MenuStrip.Size = New System.Drawing.Size(1014, 28)
         Me.MenuStrip.TabIndex = 7
         Me.MenuStrip.Text = "MenuStrip1"
         '
@@ -151,26 +151,26 @@ Partial Class LogDisplayForm
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenFileMenuStrip, Me.SaveFileMenuStrip})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(46, 26)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(46, 24)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'OpenFileMenuStrip
         '
         Me.OpenFileMenuStrip.Name = "OpenFileMenuStrip"
-        Me.OpenFileMenuStrip.Size = New System.Drawing.Size(128, 26)
+        Me.OpenFileMenuStrip.Size = New System.Drawing.Size(224, 26)
         Me.OpenFileMenuStrip.Text = "Open"
         '
         'SaveFileMenuStrip
         '
         Me.SaveFileMenuStrip.Name = "SaveFileMenuStrip"
-        Me.SaveFileMenuStrip.Size = New System.Drawing.Size(128, 26)
+        Me.SaveFileMenuStrip.Size = New System.Drawing.Size(224, 26)
         Me.SaveFileMenuStrip.Text = "Save"
         '
         'DataCollectionToolStripMenuItem
         '
         Me.DataCollectionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StartDataCollectionToolMenuStrip, Me.StopDataCollectionMenuStrip, Me.ThirtySecondsMenuStrip, Me.FullDataSetMenuStrip})
         Me.DataCollectionToolStripMenuItem.Name = "DataCollectionToolStripMenuItem"
-        Me.DataCollectionToolStripMenuItem.Size = New System.Drawing.Size(126, 26)
+        Me.DataCollectionToolStripMenuItem.Size = New System.Drawing.Size(126, 24)
         Me.DataCollectionToolStripMenuItem.Text = "Data Collection"
         '
         'StartDataCollectionToolMenuStrip
@@ -201,16 +201,16 @@ Partial Class LogDisplayForm
         '
         Me.ToolStrip.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.ToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.COMSelectToolStripComboBox, Me.ConnectCOMToolStripButton})
-        Me.ToolStrip.Location = New System.Drawing.Point(0, 30)
+        Me.ToolStrip.Location = New System.Drawing.Point(0, 28)
         Me.ToolStrip.Name = "ToolStrip"
-        Me.ToolStrip.Size = New System.Drawing.Size(1014, 31)
+        Me.ToolStrip.Size = New System.Drawing.Size(1014, 28)
         Me.ToolStrip.TabIndex = 8
         Me.ToolStrip.Text = "ToolStrip1"
         '
         'COMSelectToolStripComboBox
         '
         Me.COMSelectToolStripComboBox.Name = "COMSelectToolStripComboBox"
-        Me.COMSelectToolStripComboBox.Size = New System.Drawing.Size(121, 31)
+        Me.COMSelectToolStripComboBox.Size = New System.Drawing.Size(121, 28)
         Me.COMSelectToolStripComboBox.ToolTipText = "Select Available COM Ports"
         '
         'ConnectCOMToolStripButton
@@ -220,7 +220,7 @@ Partial Class LogDisplayForm
         Me.ConnectCOMToolStripButton.Image = Global.Data_Logging.My.Resources.Resources.icons8_usb_connector_30
         Me.ConnectCOMToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ConnectCOMToolStripButton.Name = "ConnectCOMToolStripButton"
-        Me.ConnectCOMToolStripButton.Size = New System.Drawing.Size(29, 28)
+        Me.ConnectCOMToolStripButton.Size = New System.Drawing.Size(29, 25)
         Me.ConnectCOMToolStripButton.Text = "ToolStripButton1"
         Me.ConnectCOMToolStripButton.ToolTipText = "Attempt to Connect to Selected COM Port" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "(Must Successfully Connect Before Loggin" &
     "g Can Begin)"
@@ -234,6 +234,24 @@ Partial Class LogDisplayForm
         Me.StatusStrip.Size = New System.Drawing.Size(1014, 26)
         Me.StatusStrip.TabIndex = 9
         Me.StatusStrip.Text = "StatusStrip1"
+        '
+        'COMStatusLabel
+        '
+        Me.COMStatusLabel.Name = "COMStatusLabel"
+        Me.COMStatusLabel.Size = New System.Drawing.Size(109, 20)
+        Me.COMStatusLabel.Text = "Not Connected"
+        '
+        'BlankStatusLabel
+        '
+        Me.BlankStatusLabel.Name = "BlankStatusLabel"
+        Me.BlankStatusLabel.Size = New System.Drawing.Size(89, 20)
+        Me.BlankStatusLabel.Text = "                    "
+        '
+        'FileSaveStatusLabel
+        '
+        Me.FileSaveStatusLabel.Name = "FileSaveStatusLabel"
+        Me.FileSaveStatusLabel.Size = New System.Drawing.Size(99, 20)
+        Me.FileSaveStatusLabel.Text = "File:                "
         '
         'DataGraphPictureBox
         '
@@ -257,24 +275,6 @@ Partial Class LogDisplayForm
         Me.SampleRateLabel.Size = New System.Drawing.Size(123, 17)
         Me.SampleRateLabel.TabIndex = 11
         Me.SampleRateLabel.Text = "Data Sample Rate"
-        '
-        'COMStatusLabel
-        '
-        Me.COMStatusLabel.Name = "COMStatusLabel"
-        Me.COMStatusLabel.Size = New System.Drawing.Size(109, 20)
-        Me.COMStatusLabel.Text = "Not Connected"
-        '
-        'BlankStatusLabel
-        '
-        Me.BlankStatusLabel.Name = "BlankStatusLabel"
-        Me.BlankStatusLabel.Size = New System.Drawing.Size(89, 20)
-        Me.BlankStatusLabel.Text = "                    "
-        '
-        'FileSaveStatusLabel
-        '
-        Me.FileSaveStatusLabel.Name = "FileSaveStatusLabel"
-        Me.FileSaveStatusLabel.Size = New System.Drawing.Size(99, 20)
-        Me.FileSaveStatusLabel.Text = "File:                "
         '
         'LogDisplayForm
         '

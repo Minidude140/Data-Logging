@@ -192,11 +192,11 @@ Public Class LogDisplayForm
     Function VerifySampleRate() As Boolean
         Dim Valid As Boolean = False
         If IsNumeric(SampleRateTextBox.Text) Then
-            If CInt(SampleRateTextBox.Text) > 0 And CInt(SampleRateTextBox.Text) < 101 Then
+            If CInt(SampleRateTextBox.Text) > 4 And CInt(SampleRateTextBox.Text) < 101 Then
                 MsgBox("Selection is Valid")
                 Valid = True
             Else
-                MsgBox("Please Enter a Number from 1 t0 100")
+                MsgBox("Please Enter a Number from 5 to 100")
                 SampleRateTextBox.Text = "10"
             End If
         Else
@@ -333,5 +333,9 @@ Public Class LogDisplayForm
     Private Sub SaveDataButton_Click(sender As Object, e As EventArgs) Handles SaveDataButton.Click,
                                                                                SaveFileMenuStrip.Click
         ExportData()
+    End Sub
+
+    Private Sub OpenFileMenuStrip_Click(sender As Object, e As EventArgs) Handles OpenFileMenuStrip.Click
+
     End Sub
 End Class
