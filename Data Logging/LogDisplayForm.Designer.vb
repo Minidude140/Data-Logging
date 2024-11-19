@@ -130,6 +130,11 @@ Partial Class LogDisplayForm
         'DataCollectionTimer
         '
         '
+        'COMSerialPort
+        '
+        Me.COMSerialPort.ReadTimeout = 500
+        Me.COMSerialPort.WriteTimeout = 500
+        '
         'SampleRateTextBox
         '
         Me.SampleRateTextBox.Location = New System.Drawing.Point(536, 553)

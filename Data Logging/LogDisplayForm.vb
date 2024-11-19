@@ -5,6 +5,8 @@
 'GitHub: https://github.com/Minidude140/Data-Logging
 
 
+Option Explicit On
+Option Strict On
 Imports System.Threading
 Public Class LogDisplayForm
     'Data list formatted for Graphing
@@ -42,7 +44,7 @@ Public Class LogDisplayForm
     ''' Attempt Connection To Selected COM Port.  Verifies Selected COM is a QY@t Board
     ''' </summary>
     Sub ConnectCOM()
-        COMSerialPort.PortName = COMSelectToolStripComboBox.SelectedItem
+        COMSerialPort.PortName = CStr(COMSelectToolStripComboBox.SelectedItem)
         COMSerialPort.BaudRate = 9600
         Try
             'Try to Open Selected COM
@@ -236,7 +238,7 @@ Public Class LogDisplayForm
                     'if record is empty ignore
                 Else
                     'Split Line into Input, High Byte, Low Byte, and Time Stamp
-                    splitRecord = currentRecord.Split(",")
+                    splitRecord = currentRecord.Split(CChar(","))
                     'Save High, Low, and Time Stamp
                     highByte = splitRecord(1)
                     lowByte = splitRecord(2)
@@ -251,9 +253,9 @@ Public Class LogDisplayForm
                     timeStamp = timeStamp.Replace("<", "")
                     timeStamp = timeStamp.Replace(">", "")
                     'Add High Byte to data list
-                    InputDataListH.Add(highByte)
+                    InputDataListH.Add(CInt(highByte))
                     'Add Low Byte to Data list
-                    InputDataListL.Add(lowByte)
+                    InputDataListL.Add(CInt(lowByte))
                     'Add Time Stamp to Data List
                     InputDataTime.Add(timeStamp)
                 End If
@@ -267,7 +269,7 @@ Public Class LogDisplayForm
             'Collect High Byte of Analog 1
             Dim newInput As Integer = InputDataListH(I)
             'Scale Input to graph picture box size
-            newInput = (((DataGraphPictureBox.Height - 50) / maxInput) * newInput) + 25
+            newInput = CInt((((DataGraphPictureBox.Height - 50) / maxInput) * newInput) + 25)
             'Add New Data Point to Data Set
             DataList.Add(newInput)
         Next
@@ -315,7 +317,7 @@ Public Class LogDisplayForm
         'Collect High Byte of Analog 1
         Dim newInput As Integer = Qy_AnalogReadA1()
         'Scale Input to graph picture box size
-        newInput = (((DataGraphPictureBox.Height - 50) / maxInput) * newInput) + 25
+        newInput = CInt((((DataGraphPictureBox.Height - 50) / maxInput) * newInput) + 25)
         'Add New Data Point to Data Set
         DataList.Add(newInput)
         If FullDataSetRadioButton.Checked = True Then
@@ -371,7 +373,7 @@ Public Class LogDisplayForm
             If VerifySampleRate() = True Then
                 'Update sample Rate and max data set
                 Dim newSampleRate As Integer = CInt(SampleRateTextBox.Text)
-                DataCollectionTimer.Interval = 1000 / newSampleRate
+                DataCollectionTimer.Interval = CInt(1000 / newSampleRate)
                 maxDataSet = newSampleRate * 30
             End If
         End If
