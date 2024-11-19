@@ -120,8 +120,6 @@ Public Class LogDisplayForm
     ''' </summary>
     ''' <param name="plotData"></param>
     Sub Plot(plotData As List(Of Integer))
-        'disable timer
-        DataCollectionTimer.Enabled = False
         'clear old data
         DataGraphPictureBox.Refresh()
         Dim g As Graphics = DataGraphPictureBox.CreateGraphics
@@ -136,7 +134,6 @@ Public Class LogDisplayForm
             oldx = x
             oldy = plotData.Item(x)
         Next
-        DataCollectionTimer.Enabled = True
     End Sub
 
     ''' <summary>
@@ -272,6 +269,14 @@ Public Class LogDisplayForm
         Catch ex As Exception
             MsgBox("Sorry an Error Occurred While Reading the File")
         End Try
+        For I = 1 To InputDataListH.Count - 1
+            'Collect High Byte of Analog 1
+            Dim newInput As Integer = InputDataListH(I)
+            'Scale Input to graph picture box size
+            newInput = (((DataGraphPictureBox.Height - 50) / maxInput) * newInput) + 25
+            'Add New Data Point to Data Set
+            DataList.Add(newInput)
+        Next
     End Sub
 
     '********************Event Handlers*****************************************
@@ -392,9 +397,10 @@ Public Class LogDisplayForm
         limitDataList.Clear()
         'Open File and Save data to lists
         SaveFileData()
-
+        'Plot Uploaded Data Set
+        Plot(DataList)
     End Sub
 End Class
 
 'Qs For Prof
-'1. Initial Directory
+'1. Initial Directory not working
