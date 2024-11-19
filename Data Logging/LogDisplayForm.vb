@@ -10,13 +10,13 @@ Option Strict On
 Imports System.Threading
 Public Class LogDisplayForm
     'Data list formatted for Graphing
-    Dim DataList As New List(Of Integer)
+    Dim dataList As New List(Of Integer)
     'Data List formatted for Graphing (only 30 Seconds of Data)
     Dim limitDataList As New List(Of Integer)
     'Raw Data Input List
-    Dim InputDataListH As New List(Of Integer)
-    Dim InputDataListL As New List(Of Integer)
-    Dim InputDataTime As New List(Of String)
+    Dim inputDataListH As New List(Of Integer)
+    Dim inputDataListL As New List(Of Integer)
+    Dim inputDataTime As New List(Of String)
     'Max Input/Data Set Used for Scaling Graphing
     Dim maxInput As Integer = 249
     Dim maxDataSet As Integer
@@ -149,11 +149,11 @@ Public Class LogDisplayForm
         'Populate array with input data
         COMSerialPort.Read(data, 0, COMSerialPort.BytesToRead)
         'Save the first Byte (MSB) 
-        InputDataListH.Add(data(0))
+        inputDataListH.Add(data(0))
         'Save the second Byte (LSB)
-        InputDataListL.Add(data(1))
+        inputDataListL.Add(data(1))
         'Save TimeStamp for Data Collection
-        InputDataTime.Add(DateTime.Now.ToString("yyMMddhhmmssff"))
+        inputDataTime.Add(DateTime.Now.ToString("yyMMddhhmmssff"))
         Return data(0)
     End Function
 
@@ -183,7 +183,7 @@ Public Class LogDisplayForm
     ''' </summary>
     ''' <returns></returns>
     Function VerifySampleRate() As Boolean
-        Dim Valid As Boolean = False
+        Dim valid As Boolean = False
         If IsNumeric(SampleRateTextBox.Text) Then
             If CInt(SampleRateTextBox.Text) > 4 And CInt(SampleRateTextBox.Text) < 101 Then
                 MsgBox("Selection is Valid")
@@ -196,7 +196,7 @@ Public Class LogDisplayForm
             MsgBox("Please Enter a Number")
             SampleRateTextBox.Text = "10"
         End If
-        Return Valid
+        Return valid
     End Function
 
     ''' <summary>
@@ -253,11 +253,11 @@ Public Class LogDisplayForm
                     timeStamp = timeStamp.Replace("<", "")
                     timeStamp = timeStamp.Replace(">", "")
                     'Add High Byte to data list
-                    InputDataListH.Add(CInt(highByte))
+                    inputDataListH.Add(CInt(highByte))
                     'Add Low Byte to Data list
-                    InputDataListL.Add(CInt(lowByte))
+                    inputDataListL.Add(CInt(lowByte))
                     'Add Time Stamp to Data List
-                    InputDataTime.Add(timeStamp)
+                    inputDataTime.Add(timeStamp)
                 End If
             Loop
             'Close File
@@ -265,13 +265,13 @@ Public Class LogDisplayForm
         Catch ex As Exception
             MsgBox("Sorry an Error Occurred While Reading the File")
         End Try
-        For I = 1 To InputDataListH.Count - 1
+        For I = 1 To inputDataListH.Count - 1
             'Collect High Byte of Analog 1
-            Dim newInput As Integer = InputDataListH(I)
+            Dim newInput As Integer = inputDataListH(I)
             'Scale Input to graph picture box size
             newInput = CInt((((DataGraphPictureBox.Height - 50) / maxInput) * newInput) + 25)
             'Add New Data Point to Data Set
-            DataList.Add(newInput)
+            dataList.Add(newInput)
         Next
     End Sub
 
@@ -319,28 +319,28 @@ Public Class LogDisplayForm
         'Scale Input to graph picture box size
         newInput = CInt((((DataGraphPictureBox.Height - 50) / maxInput) * newInput) + 25)
         'Add New Data Point to Data Set
-        DataList.Add(newInput)
+        dataList.Add(newInput)
         If FullDataSetRadioButton.Checked = True Then
             'If Data Set exceeds 30 seconds of data smoosh scaling
-            If DataList.Count >= maxDataSet Then
+            If dataList.Count >= maxDataSet Then
                 maxDataSet += 1
             End If
         End If
-        If DataList.Count > maxDataSet Then
+        If dataList.Count > maxDataSet Then
             'Update 30s data list 
             limitDataList.Clear()
-            For x = (DataList.Count - maxDataSet) To DataList.Count - 1
-                limitDataList.Add(DataList(x))
+            For x = (dataList.Count - maxDataSet) To dataList.Count - 1
+                limitDataList.Add(dataList(x))
             Next
         End If
     End Sub
 
     Private Sub UpdateGraphTimer_Tick(sender As Object, e As EventArgs) Handles UpdateGraphTimer.Tick
         'Plot Current Data Set
-        If FullDataSetRadioButton.Checked = True Or DataList.Count <= maxDataSet Then
+        If FullDataSetRadioButton.Checked = True Or dataList.Count <= maxDataSet Then
             'Plot full data amount and first 30s of data when initial data is empty
-            Plot(DataList)
-        ElseIf ThirtySecondsRadioButton.Checked = True And DataList.Count >= maxDataSet Then
+            Plot(dataList)
+        ElseIf ThirtySecondsRadioButton.Checked = True And dataList.Count >= maxDataSet Then
             'Plot data limited to last 30s
             Plot(limitDataList)
         End If
@@ -386,14 +386,14 @@ Public Class LogDisplayForm
 
     Private Sub OpenFileMenuStrip_Click(sender As Object, e As EventArgs) Handles OpenFileMenuStrip.Click
         'Clear Current Data Sets
-        InputDataListH.Clear()
-        InputDataListL.Clear()
-        InputDataTime.Clear()
-        DataList.Clear()
+        inputDataListH.Clear()
+        inputDataListL.Clear()
+        inputDataTime.Clear()
+        dataList.Clear()
         limitDataList.Clear()
         'Open File and Save data to lists
         SaveFileData()
         'Plot Uploaded Data Set
-        Plot(DataList)
+        Plot(dataList)
     End Sub
 End Class
