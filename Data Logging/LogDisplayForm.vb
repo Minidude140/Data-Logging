@@ -5,12 +5,6 @@
 'GitHub: https://github.com/Minidude140/Data-Logging
 
 
-'TODO:
-'[*]Add File Output
-'[1/2]Add File Input (Data Input Complete Need to Graph Data)
-'[]Disconnect Error Handling
-'[*]Add Variable Data Sample Rate
-
 Imports System.Threading
 Public Class LogDisplayForm
     'Data list formatted for Graphing
@@ -401,6 +395,3 @@ Public Class LogDisplayForm
         Plot(DataList)
     End Sub
 End Class
-
-'Qs For Prof
-'1. Initial Directory not working
