@@ -265,8 +265,6 @@ Public Class LogDisplayForm
     Private Sub DataCollectionTimer_Tick(sender As Object, e As EventArgs) Handles DataCollectionTimer.Tick
         'Collect High Byte of Analog 1
         Dim newInput As Integer = Qy_AnalogReadA1()
-        'Add Raw Data High Byte to Input List
-        InputDataListH.Add(newInput)
         'Scale Input to graph picture box size
         newInput = (((DataGraphPictureBox.Height - 50) / maxInput) * newInput) + 25
         'Add New Data Point to Data Set
