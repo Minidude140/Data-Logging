@@ -396,4 +396,15 @@ Public Class LogDisplayForm
         'Plot Uploaded Data Set
         Plot(dataList)
     End Sub
+
+    Private Sub StartNewLogToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartNewLogToolStripMenuItem.Click
+        'Clear Current Data Sets
+        inputDataListH.Clear()
+        inputDataListL.Clear()
+        inputDataTime.Clear()
+        dataList.Clear()
+        limitDataList.Clear()
+        'Set Up Default Start
+        SetDefaults()
+    End Sub
 End Class
